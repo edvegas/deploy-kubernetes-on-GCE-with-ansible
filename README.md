@@ -1,1 +1,1 @@
-Use this repo to deploy Kubernetes cluster using Ansible in Google Cloud
+Use this repo to deploy Kubernetes cluster in Google Cloud using Ansible
