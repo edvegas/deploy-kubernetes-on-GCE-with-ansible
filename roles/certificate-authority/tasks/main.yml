@@ -1,0 +1,27 @@
+---
+# tasks file for certificate-authority
+- name: Copy files to kubernetes directory
+  copy: 
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+  with_items:
+    - { src: 'ca-config.json', dest: '/opt/kubernetes-pki/ca-config.json' }
+    - { src: 'ca-csr.json', dest: '/opt/kubernetes-pki/ca-csr.json' }
+    - { src: 'admin-csr.json', dest: '/opt/kubernetes-pki/admin-csr.json' }
+    - { src: 'kube-proxy-csr.json', dest: '/opt/kubernetes-pki/kube-proxy-csr.json' }
+    - { src: 'kubernetes-csr.json', dest: '/opt/kubernetes-pki/kubernetes-csr.json' }
+    - { src: 'kube-controller-manager-csr.json', dest: '/opt/kubernetes-pki/kube-controller-manager-csr.json' }
+    - { src: 'kube-scheduler-csr.json', dest: '/opt/kubernetes-pki/kube-scheduler-csr.json' }
+
+- name: Copy certificates of each worker node
+  template:
+    src: worker-csr.json.j2
+    dest: "{{ item.dest }}"
+  with_items:
+    - {name: worker-0, dest: "/opt/kubernetes-pki/worker-0-csr.json"}
+    - {name: worker-1, dest: "/opt/kubernetes-pki/worker-1-csr.json"}
+    - {name: worker-2, dest: "/opt/kubernetes-pki/worker-2-csr.json"}
+
+- include:
+    - gencert-client.yml
+    - gencert-server.yml

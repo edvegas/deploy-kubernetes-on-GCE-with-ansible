@@ -5,3 +5,6 @@
 
 # provision compute resources
 - include: 03-compute-resources.yml
+
+# provision a Certificate Authority and generate TLS certificates
+- include: 04-certificate-authority.yml
