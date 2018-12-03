@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Add gcloud SDK repository
+      apt_repository:
+        repo: "deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main"
+
+    - name: Add GCP public key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+    - name: Install Google Cloud SDK
+      apt:
+        name: google-cloud-sdk
+        state: latest
