@@ -1,0 +1,5 @@
+---
+
+# install client tools (cfssl, cfssljson and kubectl)
+
+- include: 02-client-tools.yml

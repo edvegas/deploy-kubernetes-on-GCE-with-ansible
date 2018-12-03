@@ -1,0 +1,5 @@
+---
+
+# install Google Cloud SDK if necessary
+- include: 01-prerequisites.yml
+  tags: installation
