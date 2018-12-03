@@ -1,0 +1,78 @@
+---
+- name: Provision Google Cloud resources
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create custom VPC network
+      gce_net:
+        name: kubernetes-the-hard-way
+        mode: custom
+        subnet_name: kubernetes
+        ipv4_range: '10.240.0.0/24'
+    
+    - name: Create Firewall Rule for internal communication
+      gce_net:
+        name: kubernetes-the-hard-way
+        fwname: kubernetes-the-hard-way-allow-internal
+        allowed: 'tcp;udp;icmp'
+        src_range: ['10.240.0.0/24', '10.200.0.0/16']
+
+    - name: Create Firewall Rule for external communication
+      gce_net:
+        name: kubernetes-the-hard-way
+        fwname: kubernetes-the-hard-way-allow-external
+        allowed: 'tcp:22;tcp:6443;icmp'
+        src_range: ['0.0.0.0/0']
+
+    - name: Allocate a static IP address for external load balancer
+      gce_eip:
+        name: kubernetes-the-hard-way
+        region: europe-west1
+
+    - name: Create Kubernetes controllers
+      gce:
+        instance_names: controller-0,controller-1,controller2 
+        disk_size: 200
+        zone: europe-west1-b
+        image_family: ubuntu-1804-lts
+        ip_forward: true
+        machine_type: n1-standard-1
+        network: kubernetes-the-hard-way 
+        subnetwork: kubernetes 
+        service_account_permissions:
+          - compute-rw
+          - storage-ro
+          - service-management
+          - service-control
+          - logging-write
+          - monitoring
+        tags:
+          - kubernetes-the-hard-way
+          - controller
+          - group-controllers
+
+    - name: Create Kubernetes workers
+      gce:
+        instance_names: "worker-{{ item }}"
+        disk_size: 200
+        zone: europe-west1-b
+        image_family: ubuntu-1804-lts
+        ip_forward: true
+        machine_type: n1-standard-1
+        network: kubernetes-the-hard-way 
+        subnetwork: kubernetes 
+        service_account_permissions:
+          - compute-rw
+          - storage-ro
+          - service-management
+          - service-control
+          - logging-write
+          - monitoring
+        tags:
+          - kubernetes-the-hard-way
+          - worker
+        metadata: '{"pod-cidr" : "10.200.{{ item }}.0/24"}'
+        with_items:
+          - 0
+          - 1
+          - 2
