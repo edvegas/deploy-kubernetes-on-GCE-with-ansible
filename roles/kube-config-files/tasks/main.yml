@@ -1,0 +1,9 @@
+---
+- name: Ensure directory for config files is present
+    path: /opt/kubernetes-pki
+    state: directory
+    mode: 0750
+
+- include:
+    - gencert-worker.yml
+    - gencert-controller.yml

@@ -1,0 +1,21 @@
+---
+- name: Copy certificates to workers
+  hosts: workers-pki
+  gather_facts: yes
+  copy:
+    src: "/opt/kubernetes-pki/{{ item }}"
+    dest: "/home/k8s/{{ item }}"
+  with_items:
+    - "{{ ansible_hostname }}.kubeconfig"
+    - kube-proxy.kubeconfig
+
+- name: Copy certificates to controllers 
+  hosts: controllers-pki
+  gather_facts: yes
+  copy:
+    src: "/opt/kubernetes-pki/{{ item }}"
+    dest: "/home/k8s/{{ item }}"
+  with_items:
+    - admin.kubeconfig
+    - kube-controller-manager.kubeconfig
+    - kube-scheduler.kubeconfig

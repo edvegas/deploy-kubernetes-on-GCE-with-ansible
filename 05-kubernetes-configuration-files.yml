@@ -1,0 +1,5 @@
+---
+- name: Generate Kubernetes Configuration Files for Authentification
+  hosts: localhost
+  roles:
+    - kuber-config-files

@@ -9,3 +9,7 @@
 # provision a Certificate Authority and generate TLS certificates
 - include: 04-certificate-authority.yml
 - include: 04-1-copy-certs.yml
+
+# generate Kubernetes Configuration Files for Authentification
+- include: 05-kubernetes-configuration-files.yml
+- include: 05-1-copy-config-files.yml
