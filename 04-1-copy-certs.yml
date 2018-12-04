@@ -1,5 +1,5 @@
 ---
-- name: Copy certificates to controllers and workers
+- name: Copy certificates to workers
   hosts: workers-pki
   gather_facts: yes
   copy:
@@ -9,3 +9,17 @@
     - ca.pem
     - "{{ ansible_hostname }}-key.pem"
     - "{{ ansible_hostname }}.pem"
+
+- name: Copy certificates to controllers 
+  hosts: controllers-pki
+  gather_facts: yes
+  copy:
+    src: "/opt/kubernetes-pki/{{ item }}"
+    dest: "/home/k8s/{{ item }}"
+  with_items:
+    - ca.pem
+    - ca-key.pem
+    - kubernetes-key.pem
+    - kubernetes.pem
+    - service-account-key.pem
+    - service-account.pem
