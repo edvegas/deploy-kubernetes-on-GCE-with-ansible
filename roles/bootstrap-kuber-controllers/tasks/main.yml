@@ -9,3 +9,5 @@
     - download-install-bins.yml
     - configure-api-server.yml
     - configure-scheduler.yml
+    - enable-http-health-checks.yml
+    - apply-api-to-kubelet.yml

@@ -28,6 +28,7 @@
       gce_eip:
         name: kubernetes-the-hard-way
         region: europe-west1
+      register: gce_eip
 
     - name: Create Kubernetes controllers
       gce:

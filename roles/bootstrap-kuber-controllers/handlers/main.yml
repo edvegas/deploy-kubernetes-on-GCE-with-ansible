@@ -1,5 +1,6 @@
 ---
 - name: start controller services
+  become: yes
   systemd:
     name: {{ item }}
     state: restarted
@@ -9,3 +10,10 @@
     - kube-apiserver
     - kube-controller-manager
     - kube-scheduler
+
+- name: restart nginx
+  become: yes
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes

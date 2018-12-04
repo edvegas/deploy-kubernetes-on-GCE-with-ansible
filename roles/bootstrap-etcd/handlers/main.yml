@@ -1,5 +1,6 @@
 ---
 - name: turn on etcd
+  become: yes
   systemd:
     name: etcd
     enabled: yes
