@@ -24,3 +24,6 @@
 # bootstrap kubernetes control plane
 - include: 08-bootstrapping-kubernetes-controllers.yml
 - include: 08-1-frontend-load-balancer.yml
+
+# bootstrap kubernetes worker nodes 
+- include: 09-bootstrapping-kubernetes-workers.yml

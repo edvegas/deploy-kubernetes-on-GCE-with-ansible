@@ -1,0 +1,13 @@
+---
+# handlers file for bootstrap-workers
+- name: start worker services
+  systemd:
+    name: {{ item }}
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
+
+  with_items:
+    - containerd
+    - kubelet
+    - kube-proxy

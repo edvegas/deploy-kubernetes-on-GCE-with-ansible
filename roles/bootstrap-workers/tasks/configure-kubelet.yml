@@ -1,0 +1,17 @@
+---
+- name: Move keys to kubernetes /var/lib directories
+  command: {{ item }}
+  with_items:
+    - mv {{ ansible_hostname }}-key.pem {{ ansible_hostname }}.pem /var/lib/kubelet
+    - mv {{ ansible_hostname }}.kubeconfig /var/lib/kubelet/kubeconfig
+    - mv ca.pem /var/lib/kubernetes
+ 
+- name: Copy kubelet configuration file
+  template:
+    src: kubelet-config.yaml.j2
+    dest: /var/lib/kubelet/kubelet-config.yaml
+
+- name: Copy kubelet.service systemd unit file
+  template:
+    src: kubelet.service
+    dest: /etc/systemd/system/kubelet.service

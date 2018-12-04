@@ -1,0 +1,16 @@
+---
+- name: Install OS dependencies
+  apt:
+    name: {{ item }}
+    update_cache: yes
+  with_items:
+    - socat
+    - conntrack
+    - ipset
+ 
+- include: 
+    - download-install-bins.yml
+    - configure-cni.yml
+    - configure-containerd.yml
+    - configure-kubelet.yml
+    - configure-kube-proxy.yml
