@@ -20,3 +20,6 @@
 
 # bootstrap etcd cluster
 - include: 07-bootstrapping-etcd.yml
+
+# bootstrap kubernetes control plane
+- include: 08-bootstrapping-kubernetes-controllers.yml

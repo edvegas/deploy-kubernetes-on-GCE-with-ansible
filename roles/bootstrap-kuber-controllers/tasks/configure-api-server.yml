@@ -1,0 +1,19 @@
+---
+- name: Ensure necessary directory is in place
+  become: yes
+  file:
+    path: /var/lib/kubernetes
+    state: directory
+
+- name: Move necessary keys
+  become: yes
+  command: mv ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
+           service-account-key.pem service-account.pem \
+           encryption-config.yaml /var/lib/kubernetes/
+  args:
+    chdir: /home/k8s/
+
+- name: Create kube-apiserver.service systemd unit file:
+  template:
+    src: kube-apiserver.service.j2
+    dest: /etc/systemd/system/kube-apiserver.service

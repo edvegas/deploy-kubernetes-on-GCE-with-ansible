@@ -1,0 +1,11 @@
+---
+- name: Create Kubernetes configuration directory
+  become: yes
+  file:
+    path: /etc/kubernetes/config
+    state: directory
+
+- include:
+    - download-install-bins.yml
+    - configure-api-server.yml
+    - configure-scheduler.yml

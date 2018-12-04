@@ -1,0 +1,17 @@
+---
+- name: Move kube-scheduler config into place
+  become: yes
+  command: mv kube-scheduler.kubeconfig /var/lib/kubernetes
+  args:
+    chdir: /home/k8s/
+
+- name: Create scheduler yaml config file
+  copy:
+    src: kube-scheduler.yaml
+    dest: /etc/kubernetes/config/kube-scheduler.yaml
+
+- name: Create scheduler service systemd unit file
+  copy:
+    src: kube-scheduler.service
+    dest: /etc/systemd/system/kube-scheduler.service
+  notify: start controller services
