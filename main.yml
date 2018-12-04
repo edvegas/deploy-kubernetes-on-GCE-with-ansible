@@ -13,3 +13,7 @@
 # generate Kubernetes Configuration Files for Authentification
 - include: 05-kubernetes-configuration-files.yml
 - include: 05-1-copy-config-files.yml
+
+# generate encryption file
+- include: 06-data-encryption-keys.yml
+- include: 06-1-copy-encryption-data.yml
