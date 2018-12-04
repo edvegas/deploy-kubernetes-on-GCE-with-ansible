@@ -1,0 +1,7 @@
+---
+- name: Copy certificates to controllers 
+  hosts: controllers-pki
+  gather_facts: yes
+  copy:
+    src: /opt/kubernetes-pki/encryption-config.yaml
+    dest: /home/k8s/encryption-config.yaml
