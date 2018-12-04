@@ -1,5 +1,9 @@
 ---
-# tasks file for certificate-authority
+- name: Ensure directory for PKI files is present
+    path: /opt/kubernetes-pki
+    state: directory
+    mode: 0750
+
 - name: Copy files to kubernetes directory
   copy: 
     src: '{{ item.src }}'
@@ -12,6 +16,7 @@
     - { src: 'kubernetes-csr.json', dest: '/opt/kubernetes-pki/kubernetes-csr.json' }
     - { src: 'kube-controller-manager-csr.json', dest: '/opt/kubernetes-pki/kube-controller-manager-csr.json' }
     - { src: 'kube-scheduler-csr.json', dest: '/opt/kubernetes-pki/kube-scheduler-csr.json' }
+    - { src: 'service-account-csr.json', dest: '/opt/kubernetes-pki/service-account-csr.json' }
 
 - name: Copy certificates of each worker node
   template:
