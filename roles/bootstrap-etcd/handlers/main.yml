@@ -1,0 +1,6 @@
+---
+- name: turn on etcd
+  service:
+    name: etcd
+    enabled: yes
+    state: restarted

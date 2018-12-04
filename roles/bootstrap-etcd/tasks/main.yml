@@ -1,0 +1,16 @@
+---
+- name: Download the official etcd release binaries  
+  get_url:
+    url: https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz
+    dest: /home/k8s/etcd-v3.3.9-linux-amd64.tar.gz
+
+- name: Extract etcd tar archive
+  unarchive:
+    src: /home/k8s/etcd-v3.3.9-linux-amd64.tar.gz
+    dest: /home/k8s/etcd-v3.3.9-linux-amd64
+
+- name: Move files to /usr/local/bin
+  become: yes
+  command: mv /home/k8s/etcd-v3.3.9-linux-amd64/etcd* /usr/local/bin/
+
+- include: configure-etcd.yml

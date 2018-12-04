@@ -17,3 +17,6 @@
 # generate encryption file
 - include: 06-data-encryption-keys.yml
 - include: 06-1-copy-encryption-data.yml
+
+# bootstrap etcd cluster
+- include: 07-bootstrapping-etcd.yml
