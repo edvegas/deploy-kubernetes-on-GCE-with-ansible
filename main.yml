@@ -36,3 +36,6 @@
 
 # deploy dns cluster add-on
 - include: 12-dns-addon.yml
+
+# smoke test
+- include: 13-smoke-test.yml
