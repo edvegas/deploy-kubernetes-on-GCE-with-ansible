@@ -27,3 +27,12 @@
 
 # bootstrap kubernetes worker nodes 
 - include: 09-bootstrapping-kubernetes-workers.yml
+
+# configure kubectl
+- include: 10-configuring-kubectl.yml
+
+# provision pod network routes
+- include: 11-pod-network-routes.yml
+
+# deploy dns cluster add-on
+- include: 12-dns-addon.yml
