@@ -23,7 +23,13 @@
 #    network: "{{ kuber_network }}"
 #    region: europe-west1
 #    project: docker-221205
-#  tags: subn
+#  register: kuber_subnetwork
+#  tags: new_net
+
+#- name: show kuber subnetwork
+#  debug:
+#    msg: "{{ kuber_subnetwork }}"
+#  tags: new_net
 
 - name: Create Firewall Rule for internal communication
   gcp_compute_firewall:

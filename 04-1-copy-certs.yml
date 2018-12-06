@@ -15,7 +15,7 @@
       setup:
 
 - name: Copy certificates to workers
-  hosts: workers-pki
+  hosts: worker
   tasks:
     copy:
       src: "/opt/kubernetes-pki/{{ item }}"
@@ -26,7 +26,7 @@
       - "{{ ansible_hostname }}.pem"
 
 - name: Copy certificates to controllers 
-  hosts: controllers-pki
+  hosts: controller
   copy:
     src: "/opt/kubernetes-pki/{{ item }}"
     dest: "/home/k8s/{{ item }}"
