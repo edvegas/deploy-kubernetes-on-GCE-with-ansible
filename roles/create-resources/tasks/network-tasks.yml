@@ -4,13 +4,16 @@
     auth_kind: serviceaccount
     name: kubernetes-the-hard-way
     auto_create_subnetworks: no
+    project: docker-221205
     
+- name: Create subnetwork
   gcp_compute_subnetwork:
     ip_cidr_range: 10.240.0.0/24
     auth_kind: serviceaccount
     name: kubernetes
     network: kubernetes-the-hard-way
     region: europe-west1
+    project: docker-221205
 
 - name: Create Firewall Rule for internal communication
   gcp_compute_firewall:
@@ -23,6 +26,9 @@
         - tcp
         - udp
         - icmp
+    project: docker-221205
+
+- name: Add another firewall rule
   gcp_compute_firewall:
     auth_kind: serviceaccount
     network: projects/docker-221205/regions/europe-west1/networks/kubernetes-the-hard-way
@@ -34,11 +40,13 @@
           - '22'
           - '6443'
       - ip_protocol: icmp
+    project: docker-221205
 
 - name: Allocate a static IP address for external load balancer
   gcp_compute_address:
     auth_kind: serviceaccount
     name: kubernetes-the-hard-way
     region: europe-west1
+    project: docker-221205
   register: gce_eip
 

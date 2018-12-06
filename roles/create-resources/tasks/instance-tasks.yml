@@ -24,10 +24,10 @@
         items:
           - kubernetes-the-hard-way
           - controller
-    with_items:
-      - 0
-      - 1
-      - 2
+  with_items:
+    - 0
+    - 1
+    - 2
 
 - name: Create Kubernetes workers
   gcp_compute_instance:
@@ -57,7 +57,7 @@
         items:
           - kubernetes-the-hard-way
           - worker
-    with_items:
-      - 0
-      - 1
-      - 2
+  with_items:
+    - 0
+    - 1
+    - 2
