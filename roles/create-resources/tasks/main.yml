@@ -1,0 +1,4 @@
+---
+- include:
+    - network-tasks.yml
+    - instance-tasks.yml

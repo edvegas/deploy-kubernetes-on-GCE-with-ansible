@@ -1,0 +1,63 @@
+- name: Create Kubernetes controllers
+  gcp_compute_instance:
+    auth_kind: serviceaccount
+    name: "controller-{{ item }}" 
+    disks:
+      auto_delete: yes
+      initialize_params:
+        disk_type: n1-standard-1
+        source_image: ubuntu-1804-lts
+        disk_size_gb: 200
+    zone: europe-west1-b
+    can_ip_forward: yes
+    network_interfaces: 
+      subnetwork: kubernetes 
+      network_ip: "10.240.0.1{{ item }}"
+      service_accounts:
+        - compute-rw
+        - storage-ro
+        - service-management
+        - service-control
+        - logging-write
+        - monitoring
+      tags:
+        items:
+          - kubernetes-the-hard-way
+          - controller
+    with_items:
+      - 0
+      - 1
+      - 2
+
+- name: Create Kubernetes workers
+  gcp_compute_instance:
+    auth_kind: serviceaccount
+    name: "worker-{{ item }}" 
+    disks:
+      auto_delete: yes
+      initialize_params:
+        disk_type: n1-standard-1
+        source_image: ubuntu-1804-lts
+        disk_size_gb: 200
+    zone: europe-west1-b
+    can_ip_forward: yes
+    network_interfaces: 
+      subnetwork: kubernetes 
+      network_ip: "10.240.0.2{{ item }}"
+      alias_ip_ranges:
+        ip_cidr_range: "10.200.{{ item }}.0/24"
+      service_accounts:
+        - compute-rw
+        - storage-ro
+        - service-management
+        - service-control
+        - logging-write
+        - monitoring
+      tags:
+        items:
+          - kubernetes-the-hard-way
+          - worker
+    with_items:
+      - 0
+      - 1
+      - 2
