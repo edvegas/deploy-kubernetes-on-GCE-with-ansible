@@ -7,7 +7,7 @@
     
 - name: Create subnetwork
   gcp_compute_subnetwork:
-    ip_cidr_range: 10.240.0.0/24
+    ip_cidr_range: ['10.240.0.0/24']
     name: kubernetes
     network: kubernetes-the-hard-way
     region: europe-west1
