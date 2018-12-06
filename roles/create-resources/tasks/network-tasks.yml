@@ -1,35 +1,48 @@
 ---
 - name: Create custom VPC network
-  gcp_compute_network:
+# auto_create_subnetwork option creates legacy network instead custom hence using gce_net module at the moment - bug report #45803
+#  gcp_compute_network:
+#    name: kubernetes-the-hard-way
+#    project: docker-221205
+#    auto_create_subnetworks: no
+#  register: kuber_network
+  gce_net:
     name: kubernetes-the-hard-way
-    auto_create_subnetworks: no
-    project: docker-221205
-    
-- name: Create subnetwork
-  gcp_compute_subnetwork:
-    ip_cidr_range: ['10.240.0.0/24']
-    name: kubernetes
-    network: kubernetes-the-hard-way
-    region: europe-west1
-    project: docker-221205
+    project_id: docker-221205
+    mode: custom
+    ipv4_range: 10.240.0.0/24
+    subnet_name: kubernetes
+    subnet_region: europe-west1
+  register: kuber_network
+  tags: new_net
+
+#- name: Create subnetwork
+#  gcp_compute_subnetwork:
+#    ip_cidr_range: 10.240.0.0/24
+#    name: kubernetes
+#    network: "{{ kuber_network }}"
+#    region: europe-west1
+#    project: docker-221205
+#  tags: subn
 
 - name: Create Firewall Rule for internal communication
   gcp_compute_firewall:
-    network: projects/docker-221205/regions/europe-west1/networks/kubernetes-the-hard-way
+    network: projects/docker-221205/global/networks/kubernetes-the-hard-way 
     name: kubernetes-the-hard-way-allow-internal
-    source_ranges: ['10.240.0.0/24', '10.200.0.0/16']
+    source_ranges: 
+      - '10.240.0.0/24'
+      - '10.200.0.0/16'
     allowed: 
-      ip_protocol:
-        - tcp
-        - udp
-        - icmp
+      - ip_protocol: tcp 
+      - ip_protocol: udp
+      - ip_protocol: icmp
     project: docker-221205
 
 - name: Add another firewall rule
   gcp_compute_firewall:
-    network: projects/docker-221205/regions/europe-west1/networks/kubernetes-the-hard-way
+    network: projects/docker-221205/global/networks/kubernetes-the-hard-way 
     name: kubernetes-the-hard-way-allow-external
-    source_ranges: ['0.0.0.0/0']  
+    source_ranges: '0.0.0.0/0'  
     allowed: 
       - ip_protocol: tcp 
         ports:
@@ -44,4 +57,3 @@
     region: europe-west1
     project: docker-221205
   register: gce_eip
-
