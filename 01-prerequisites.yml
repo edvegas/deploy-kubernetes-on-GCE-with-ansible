@@ -17,10 +17,14 @@
         name: google-cloud-sdk
         state: latest
 
-    - name: Install apache-libcloud for GCE modules
+    - name: Install packages for GCE modules
       pip:
-        name: apache-libcloud
+        name: "{{ item }}"
         state: latest
+      with_items:
+        - apache-libcloud
+        - requests
+        - google-auth
 
     - name: Important information
       debug:
