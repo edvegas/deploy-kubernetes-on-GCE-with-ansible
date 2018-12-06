@@ -1,6 +1,5 @@
 - name: Create Kubernetes controllers
   gcp_compute_instance:
-    auth_kind: serviceaccount
     name: "controller-{{ item }}" 
     disks:
       auto_delete: yes
@@ -31,7 +30,6 @@
 
 - name: Create Kubernetes workers
   gcp_compute_instance:
-    auth_kind: serviceaccount
     name: "worker-{{ item }}" 
     disks:
       auto_delete: yes
