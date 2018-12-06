@@ -2,11 +2,12 @@
   gcp_compute_instance:
     name: "controller-{{ item }}" 
     project: docker-221205
+    state: present
+    machine_type: n1-standard-1
     disks:
       - auto_delete: yes
         boot: yes
         initialize_params:
-          disk_type: n1-standard-1
           source_image: ubuntu-1804-lts
           disk_size_gb: 200
     zone: europe-west1-b
@@ -15,13 +16,13 @@
       - subnetwork: 
           selfLink: "{{ subnetwork_selflink }}"
         network_ip: "10.240.0.1{{ item }}"
-    scopes:
-      - compute-rw
-      - storage-ro
-      - service-management
-      - service-control
-      - logging-write
-      - monitoring
+#    scopes: ['compute-rw', 'storage-ro', 'service-management', 'service-control', 'logging-write', 'monitoring']
+      #- compute-rw
+      #- storage-ro
+      #- service-management
+      #- service-control
+      #- logging-write
+      #- monitoring
     tags:
       items:
         - kubernetes-the-hard-way
@@ -30,6 +31,7 @@
     - 0
     - 1
     - 2
+  tags: controllers_create
 
 - name: Create Kubernetes workers
   gcp_compute_instance:
