@@ -1,18 +1,32 @@
 ---
+- name: Ensure python 2.7 is present on all hosts
+  hosts: all
+  become: true
+  gather_facts: no
+
+  pre_tasks:
+    - name: Ensure python 2.7 is present
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      register: output
+      changed_when:
+        - output.stdout != ""
+        - output.stdout != "\r\n"
+    - name: Gather facts
+      setup:
+
 - name: Copy certificates to workers
   hosts: workers-pki
-  gather_facts: yes
-  copy:
-    src: "/opt/kubernetes-pki/{{ item }}"
-    dest: "/home/k8s/{{ item }}"
-  with_items:
-    - ca.pem
-    - "{{ ansible_hostname }}-key.pem"
-    - "{{ ansible_hostname }}.pem"
+  tasks:
+    copy:
+      src: "/opt/kubernetes-pki/{{ item }}"
+      dest: "/home/k8s/{{ item }}"
+    with_items:
+      - "ca.pem"
+      - "{{ ansible_hostname }}-key.pem"
+      - "{{ ansible_hostname }}.pem"
 
 - name: Copy certificates to controllers 
   hosts: controllers-pki
-  gather_facts: yes
   copy:
     src: "/opt/kubernetes-pki/{{ item }}"
     dest: "/home/k8s/{{ item }}"

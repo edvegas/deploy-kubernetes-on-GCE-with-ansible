@@ -27,6 +27,5 @@
     - {name: worker-1, dest: "/opt/kubernetes-pki/worker-1-csr.json"}
     - {name: worker-2, dest: "/opt/kubernetes-pki/worker-2-csr.json"}
 
-- include:
-    - gencert-client.yml
-    - gencert-server.yml
+- include: gencert-client.yml
+- include: gencert-server.yml
