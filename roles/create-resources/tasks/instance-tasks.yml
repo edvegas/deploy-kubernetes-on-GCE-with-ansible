@@ -12,7 +12,8 @@
     zone: europe-west1-b
     can_ip_forward: yes
     network_interfaces: 
-      - subnetwork: "{{ subnetwork_k8s }}" 
+      - subnetwork: 
+          selfLink: "{{ subnetwork_selflink }}"
         network_ip: "10.240.0.1{{ item }}"
     scopes:
       - compute-rw
@@ -44,7 +45,8 @@
     zone: europe-west1-b
     can_ip_forward: yes
     network_interfaces: 
-      - subnetwork: "{{ subnetwork_k8s }}" 
+      - subnetwork:
+          selfLink: "{{ subnetwork_selflink }}"
         network_ip: "10.240.0.2{{ item }}"
         alias_ip_ranges:
           ip_cidr_range: "10.200.{{ item }}.0/24"
