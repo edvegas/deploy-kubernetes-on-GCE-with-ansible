@@ -1,0 +1,5 @@
+---
+
+image: ubuntu-1804-bionic-v20181203a
+machine_type: n1-standard-1
+metadata: '{"sshKeys":"k8s:{{ lookup("file", "./ssh/k8s_key.pub") }}"}'
