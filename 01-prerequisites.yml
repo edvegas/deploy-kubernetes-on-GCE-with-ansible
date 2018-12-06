@@ -17,6 +17,11 @@
         name: google-cloud-sdk
         state: latest
 
+    - name: Install apache-libcloud for GCE modules
+      pip:
+        name: apache-libcloud
+        state: latest
+
     - name: Important information
       debug:
         msg: "Don't forget to run 'gcloud init' to initialize SDK step-by-step"
