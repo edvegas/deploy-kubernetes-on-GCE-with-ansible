@@ -51,14 +51,14 @@
           selfLink: "{{ subnetwork_selflink }}"
         network_ip: "10.240.0.2{{ item }}"
         alias_ip_ranges:
-          ip_cidr_range: "10.200.{{ item }}.0/24"
-    scopes:
-      - compute-rw
-      - storage-ro
-      - service-management
-      - service-control
-      - logging-write
-      - monitoring
+          - ip_cidr_range: "10.200.{{ item }}.0/24"
+#    scopes:
+#      - compute-rw
+#      - storage-ro
+#      - service-management
+#      - service-control
+#      - logging-write
+#      - monitoring
     tags:
       items:
         - kubernetes-the-hard-way
@@ -67,3 +67,4 @@
     - 0
     - 1
     - 2
+  tags: workers_create
