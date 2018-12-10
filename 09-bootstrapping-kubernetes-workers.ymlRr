@@ -1,6 +1,0 @@
----
-- name: Bootstrapping the Kubernetes Worker Nodes
-  hosts: workers
-  become: yes
-  roles:
-    - bootstrap-workers

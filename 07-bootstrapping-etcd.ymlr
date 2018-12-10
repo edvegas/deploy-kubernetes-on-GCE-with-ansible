@@ -1,5 +1,0 @@
----
-- name: Bootstrapping the etcd Cluster
-  hosts: controllers
-  roles:
-    - bootstrap-etcd

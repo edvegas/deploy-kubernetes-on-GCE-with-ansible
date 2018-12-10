@@ -1,6 +1,0 @@
----
-- hosts: localhost
-  become: yes
-  gather_facts: yes
-  roles:
-   - certificate-authority

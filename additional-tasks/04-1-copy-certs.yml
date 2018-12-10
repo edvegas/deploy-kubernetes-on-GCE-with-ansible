@@ -13,7 +13,7 @@
         - output.stdout != "\r\n"
 
 - name: Copy certificates to workers
-  hosts: worker
+  hosts: tag_worker
   tasks:
     - name: Copy certificates
       copy:
@@ -25,7 +25,7 @@
         - "{{ ansible_hostname }}.pem"
 
 - name: Copy certificates to controllers 
-  hosts: controller
+  hosts: tag_controller
   tasks:
     - name: Copy certificates to controllers
       copy:

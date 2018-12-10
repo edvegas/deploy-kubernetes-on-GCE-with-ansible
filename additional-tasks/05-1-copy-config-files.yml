@@ -1,6 +1,6 @@
 ---
 - name: Copy certificates to workers
-  hosts: workers-pki
+  hosts: tag_worker
   gather_facts: yes
   tasks:
     - name: Copy certificates to workers
@@ -12,7 +12,7 @@
         - kube-proxy.kubeconfig
 
 - name: Copy certificates to controllers 
-  hosts: controllers-pki
+  hosts: tag_controller
   gather_facts: yes
   tasks:
     - name: Copy certificates to workers
