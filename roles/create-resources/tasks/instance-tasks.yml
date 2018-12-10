@@ -1,32 +1,25 @@
 - name: Create Kubernetes controllers
-  gcp_compute_instance:
-    name: "controller-{{ item }}" 
-    project: docker-221205
+  gce:
+    instance_names: "controller-{{ item }}" 
+    project_id: "{{ project_id }}"
     state: present
     machine_type: n1-standard-1
-    disks:
-      - auto_delete: yes
-        boot: yes
-        initialize_params:
-          source_image: ubuntu-1804-lts
-          disk_size_gb: 200
+    disk_size: 200
+    image: ubuntu-18 
     zone: europe-west1-b
-    can_ip_forward: yes
-    network_interfaces: 
-      - subnetwork: 
-          selfLink: "{{ subnetwork_selflink }}"
-        network_ip: "10.240.0.1{{ item }}"
-#    scopes: ['compute-rw', 'storage-ro', 'service-management', 'service-control', 'logging-write', 'monitoring']
-      #- compute-rw
-      #- storage-ro
-      #- service-management
-      #- service-control
-      #- logging-write
-      #- monitoring
-    tags:
-      items:
-        - kubernetes-the-hard-way
-        - controller
+    ip_forward: yes
+    service_account_permissions:
+      - compute-rw
+      - storage-ro
+      - service-management
+      - service-control
+      - logging-write
+      - monitoring
+    network: kubernetes-the-hard-way
+    subnetwork: kubernetes
+    tags: 
+      - kubernetes-the-hard-way
+      - controller
   with_items:
     - 0
     - 1
@@ -34,37 +27,31 @@
   tags: controllers_create
 
 - name: Create Kubernetes workers
-  gcp_compute_instance:
-    name: "worker-{{ item }}" 
-    project: docker-221205
-    disks:
-      - auto_delete: yes
-        boot: yes
-        initialize_params:
-          disk_type: n1-standard-1
-          source_image: ubuntu-1804-lts
-          disk_size_gb: 200
+  gce:
+    instance_names: "worker-{{ item }}" 
+    project_id: "{{ project_id }}"
+    state: present
+    machine_type: n1-standard-1
+    disk_size: 200
+    image: ubuntu-18 
     zone: europe-west1-b
-    can_ip_forward: yes
-    network_interfaces: 
-      - subnetwork:
-          selfLink: "{{ subnetwork_selflink }}"
-        network_ip: "10.240.0.2{{ item }}"
-        alias_ip_ranges:
-          - ip_cidr_range: "10.200.{{ item }}.0/24"
-#    scopes:
-#      - compute-rw
-#      - storage-ro
-#      - service-management
-#      - service-control
-#      - logging-write
-#      - monitoring
-    tags:
-      items:
-        - kubernetes-the-hard-way
-        - worker
+    ip_forward: yes
+    service_account_permissions:
+      - compute-rw
+      - storage-ro
+      - service-management
+      - service-control
+      - logging-write
+      - monitoring
+    network: kubernetes-the-hard-way
+    subnetwork: kubernetes
+    metadata: '{"sshKeys":"k8s:{{ lookup("file", "./ssh/k8s_key.pub") }}","pod-cidr":"10.200.{{ item }}.0/24"}'
+    tags: 
+      - kubernetes-the-hard-way
+      - worker
   with_items:
     - 0
     - 1
     - 2
   tags: workers_create
+
