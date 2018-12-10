@@ -1,7 +1,7 @@
 ---
 - name: Ensure python 2.7 is present on all hosts
   hosts: all
-  become: true
+  become: yes
   gather_facts: no
 
   pre_tasks:
@@ -11,7 +11,12 @@
       changed_when:
         - output.stdout != ""
         - output.stdout != "\r\n"
-
+  tasks:
+    - name: ensure destination directory exists
+      file:
+        path: "/opt/kubernetes-pki"
+        state: directory
+      
 - name: Copy certificates to workers
   hosts: tag_worker
   tasks:
