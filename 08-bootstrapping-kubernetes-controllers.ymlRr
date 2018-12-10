@@ -1,0 +1,5 @@
+---
+- name: Bootstrapping the Kubernetes Control Plane
+  hosts: controllers
+  roles:
+    - bootstrap-kuber-controllers

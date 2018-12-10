@@ -2,7 +2,7 @@
 # handlers file for bootstrap-workers
 - name: start worker services
   systemd:
-    name: {{ item }}
+    name: "{{ item }}"
     enabled: yes
     state: restarted
     daemon_reload: yes

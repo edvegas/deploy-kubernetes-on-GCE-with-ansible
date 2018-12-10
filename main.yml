@@ -1,41 +1,42 @@
 ---
 
 # install client tools (cfssl, cfssljson and kubectl)
-- include: 02-client-tools.yml
+- import_playbook: 02-client-tools.yml
 
 # provision compute resources
-- include: 03-compute-resources.yml
-
+- import_playbook: 03-compute-resources.yml
+  tags: tester
 # provision a Certificate Authority and generate TLS certificates
-- include: 04-certificate-authority.yml
-- include: 04-1-copy-certs.yml
+- import_playbook: 04-certificate-authority.yml
+  tags: tester
+- import_playbook: additional-tasks/04-1-copy-certs.yml
 
 # generate Kubernetes Configuration Files for Authentification
-- include: 05-kubernetes-configuration-files.yml
-- include: 05-1-copy-config-files.yml
+- import_playbook: 05-kubernetes-configuration-files.yml
+- import_playbook: additional-tasks/05-1-copy-config-files.yml
 
 # generate encryption file
-- include: 06-data-encryption-keys.yml
-- include: 06-1-copy-encryption-data.yml
+- import_playbook: 06-data-encryption-keys.yml
+- import_playbook: additional-tasks/06-1-copy-encryption-data.yml
 
 # bootstrap etcd cluster
-- include: 07-bootstrapping-etcd.yml
+- import_playbook: 07-bootstrapping-etcd.yml
 
 # bootstrap kubernetes control plane
-- include: 08-bootstrapping-kubernetes-controllers.yml
-- include: 08-1-frontend-load-balancer.yml
+- import_playbook: 08-bootstrapping-kubernetes-controllers.yml
+- import_playbook: additional-tasks/08-1-frontend-load-balancer.yml
 
 # bootstrap kubernetes worker nodes 
-- include: 09-bootstrapping-kubernetes-workers.yml
+- import_playbook: 09-bootstrapping-kubernetes-workers.yml
 
 # configure kubectl
-- include: 10-configuring-kubectl.yml
+- import_playbook: 10-configuring-kubectl.yml
 
 # provision pod network routes
-- include: 11-pod-network-routes.yml
+- import_playbook: 11-pod-network-routes.yml
 
 # deploy dns cluster add-on
-- include: 12-dns-addon.yml
+- import_playbook: 12-dns-addon.yml
 
 # smoke test
-- include: 13-smoke-test.yml
+- import_playbook: 13-smoke-test.yml

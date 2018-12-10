@@ -2,7 +2,7 @@
 - name: start controller services
   become: yes
   systemd:
-    name: {{ item }}
+    name: "{{ item }}"
     state: restarted
     enabled: yes
     daemon_reload: yes

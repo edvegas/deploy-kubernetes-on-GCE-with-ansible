@@ -1,7 +1,7 @@
 ---
 - name: copy RBAC config files to controller-0
   copy: 
-    src: {{ item }}
+    src: "{{ item }}"
     dest: /home/k8s/clusterrole.yml
   with_items:
     - clusterrole.yml
@@ -9,7 +9,7 @@
   when: ansible_hostname == "controller-0"
 
 - name: create ClusterRole to access Kubelet API
-  shell: {{ item }} 
+  shell: "{{ item }}" 
   args:
     chdir: /home/k8s
   with_items:

@@ -1,0 +1,14 @@
+---
+- name: Provisioning Pod Network Routes
+  hosts: localhost
+  tasks:
+    gcp_compute_route:
+      auth_kind: "service_account"
+      dest_range: "10.200.{{ item }}.0/24"
+      name: "kubernetes-route-10-200-{{ item }}-0-24"
+      network: kubernetes-the-hard-way
+      next_hop_ip: "10.240.0.2{{ item }}"
+    with_items:
+      - 0
+      - 1
+      - 2

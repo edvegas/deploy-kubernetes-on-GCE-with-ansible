@@ -1,0 +1,41 @@
+---
+- name: Provision a Network Load Balancer
+  hosts: localhost
+  tasks:
+    - name: create HTTP health checks
+      gcp_compute_http_health_check:
+        auth_kind: "service_account"
+        name: "kubernetes"
+        description: "Kubernetes Health Check"
+        host: "kubernetes.default.svc.cluster.local"
+        request_path: "/healthz"
+
+    - name: create firewall rules
+      gcp_compute_firewall:
+        auth_kind: "service_account"
+        name: "kubernetes-the-hard-way-allow-health-check"
+        network: kubernetes-the-hard-way
+        source_ranges: 209.85.152.0/22,209.85.204.0/22,35.191.0.0/16
+        allowed:
+          ip_protocol: tcp
+
+    - name: create GCP target pool
+      gcp_compute_target_pool:
+        auth_kind: "service_account"
+        name: "kubernetes-target-pool"
+        health_check: kubernetes
+        region: europe-west1
+        instances: "{{ item }}"
+      with_items:
+        - controller-0
+        - controller-1
+        - controller-2
+
+    - name: create forwarding rules
+      gcp_compute_forwarding_rule:
+        auth_kind: "service_account"
+        name: "kubernetes-forwarding-rule"
+        region: europe-west1
+        ip_address:  "{{ gce_eip.address }}" 
+        target: kubernetes-target-pool
+        ports: 6443

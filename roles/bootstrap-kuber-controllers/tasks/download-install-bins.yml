@@ -1,7 +1,7 @@
 ---
 - name: Download official Kubernetes release binaries
   get_url:
-    url: {{ item }}
+    url: "{{ item }}"
     dest: "/home/k8s/{{ item }}"
     mode: 0755
   with_items:
@@ -10,8 +10,8 @@
     - https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kube-scheduler
     - https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubectl
 
- - name: Install Kubernetes binaries
-   become: yes
-   command: mv kube-apiserver kube-controller-manager kube-scheduler kubectl /usr/local/bin/
-   args:
-     chdir: /home/k8s
+- name: Install Kubernetes binaries
+  become: yes
+  command: mv kube-apiserver kube-controller-manager kube-scheduler kubectl /usr/local/bin/
+  args:
+    chdir: /home/k8s

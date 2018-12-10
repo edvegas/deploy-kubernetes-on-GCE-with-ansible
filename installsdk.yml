@@ -1,5 +1,5 @@
 ---
 
 # install Google Cloud SDK if necessary
-- include: 01-prerequisites.yml
+- import_playbook: 01-prerequisites.yml
   tags: installation

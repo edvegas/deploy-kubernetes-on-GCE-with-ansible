@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Add GCP public key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: Add gcloud SDK repository
+      apt_repository:
+        repo: "deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main"
+        update_cache: yes
+
+    - name: Install Google Cloud SDK
+      apt:
+        name: google-cloud-sdk
+        state: latest
+
+    - name: Install packages for GCE modules
+      pip:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - apache-libcloud
+        - requests
+        - google-auth
+
+    - name: Important information
+      debug:
+        msg: "Don't forget to run 'gcloud init' to initialize SDK step-by-step"

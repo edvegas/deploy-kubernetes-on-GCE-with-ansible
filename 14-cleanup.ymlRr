@@ -1,0 +1,67 @@
+---
+- name: Clean Up GCP resources to save money
+  hosts: localhost
+  tasks:
+    - name: Delete controller and worker compute instances
+      gcp_compute_instance:
+        auth_kind: "service_account"
+        zone: europe-west1
+        state: absent
+        name: {{ item }}
+      with_items:
+        - controller-0
+        - controller-1
+        - controller-2
+        - worker-0
+        - worker-1
+        - worker-2
+
+    - name: Delete external load balancer
+      gcp_compute_forwarding_rule:
+        auth_kind: "service_account"
+        region: europe-west1-b
+        name: kubernetes-forwarding-rule
+        state: absent
+      gcp_compute_target_pool:
+        auth_kind: "service_account"
+        region: europe-west1-b
+        name: kubernetes-target-pool
+        state: absent
+      gcp_compute_http_health_check:
+        auth_kind: "service_account"
+        name: kubernetes
+        state: absent
+      gcp_compute_address:
+        auth_kind: "service_account"
+        region: europe-west1-b
+        name: kubernetes-the-hard-way 
+        state: absent
+
+    - name: Delete firewall rules
+      gcp_compute_firewall:
+        auth_kind: "service_account"
+        name: {{ item }}
+        state: absent
+      with_items:
+        - kubernetes-the-hard-way-allow-nginx-service
+        - kubernetes-the-hard-way-allow-internal
+        - kubernetes-the-hard-way-allow-external
+        - kubernetes-the-hard-way-allow-health-check
+
+    - name: Delete network VPC
+      gcp_compute_route:
+        auth_kind: "service_account"
+        name: kubernetes-route-10-200-{{ item }}-0-24
+        state: absent
+      with_item:
+        - 0
+        - 1
+        - 2
+      gcp_compute_subnetwork:
+        auth_kind: "service_account"
+        state: absent
+        name: kubernetes
+      gcp_compute_network:
+        auth_kind: "service_account"
+        state: absent
+        name: kubernetes-the-hard-way

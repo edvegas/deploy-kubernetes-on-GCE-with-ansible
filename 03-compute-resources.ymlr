@@ -1,0 +1,6 @@
+---
+- name: Provision Google Cloud resources
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - create-resources

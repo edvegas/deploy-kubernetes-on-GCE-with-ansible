@@ -1,10 +1,10 @@
 ---
 - name: Move keys to kubernetes /var/lib directories
-  command: {{ item }}
+  command: "{{ item }}"
   with_items:
-    - mv {{ ansible_hostname }}-key.pem {{ ansible_hostname }}.pem /var/lib/kubelet
-    - mv {{ ansible_hostname }}.kubeconfig /var/lib/kubelet/kubeconfig
-    - mv ca.pem /var/lib/kubernetes
+    - "mv {{ ansible_hostname }}-key.pem {{ ansible_hostname }}.pem /var/lib/kubelet"
+    - "mv {{ ansible_hostname }}.kubeconfig /var/lib/kubelet/kubeconfig"
+    - "mv ca.pem /var/lib/kubernetes"
  
 - name: Copy kubelet configuration file
   template:

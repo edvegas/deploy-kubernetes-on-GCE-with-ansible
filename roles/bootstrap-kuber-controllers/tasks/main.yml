@@ -5,9 +5,8 @@
     path: /etc/kubernetes/config
     state: directory
 
-- include:
-    - download-install-bins.yml
-    - configure-api-server.yml
-    - configure-scheduler.yml
-    - enable-http-health-checks.yml
-    - apply-api-to-kubelet.yml
+- include: download-install-bins.yml
+- include: configure-api-server.yml
+- include: configure-scheduler.yml
+- include: enable-http-health-checks.yml
+- include: apply-api-to-kubelet.yml

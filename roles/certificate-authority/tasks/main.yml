@@ -1,5 +1,6 @@
 ---
 - name: Ensure directory for PKI files is present
+  file:
     path: /opt/kubernetes-pki
     state: directory
     mode: 0750
