@@ -8,7 +8,7 @@
 #  register: kuber_network
   gce_net:
     name: kubernetes-the-hard-way
-    project_id: docker-221205
+    project_id: "{{ project_id }}"
     mode: custom
     ipv4_range: 10.240.0.0/24
     subnet_name: kubernetes
@@ -33,7 +33,7 @@
 
 - name: Create Firewall Rule for internal communication
   gcp_compute_firewall:
-    network: projects/docker-221205/global/networks/kubernetes-the-hard-way 
+    network: "projects/{{ project_id }}/global/networks/kubernetes-the-hard-way" 
     name: kubernetes-the-hard-way-allow-internal
     source_ranges: 
       - '10.240.0.0/24'
@@ -42,24 +42,24 @@
       - ip_protocol: tcp 
       - ip_protocol: udp
       - ip_protocol: icmp
-    project: docker-221205
+    project: "{{ project_id }}"
 
 - name: Add another firewall rule
   gcp_compute_firewall:
-    network: projects/docker-221205/global/networks/kubernetes-the-hard-way 
+    network: "projects/{{ project_id }}/global/networks/kubernetes-the-hard-way" 
     name: kubernetes-the-hard-way-allow-external
-    source_ranges: '0.0.0.0/0'  
+    source_ranges: '0.0.0.0/0'
     allowed: 
       - ip_protocol: tcp 
         ports:
           - '22'
           - '6443'
       - ip_protocol: icmp
-    project: docker-221205
+    project: "{{ project_id }}"
 
 - name: Allocate a static IP address for external load balancer
   gcp_compute_address:
     name: kubernetes-the-hard-way
     region: europe-west1
-    project: docker-221205
+    project: "{{ project_id }}"
   register: gce_eip
