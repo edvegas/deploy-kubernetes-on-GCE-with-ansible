@@ -7,6 +7,7 @@
 
 - include: download-install-bins.yml
 - include: configure-api-server.yml
+- include: configure-controller-manager.yml
 - include: configure-scheduler.yml
 - include: enable-http-health-checks.yml
 - include: apply-api-to-kubelet.yml

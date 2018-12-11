@@ -6,7 +6,6 @@
   with_items:
     - clusterrole.yml
     - clusterrole-bind.yml
-  when: ansible_hostname == "controller-0"
 
 - name: 08-create ClusterRole to access Kubelet API
   shell: "{{ item }}" 
@@ -15,4 +14,3 @@
   with_items:
     - kubectl apply --kubeconfig admin.kubeconfig -f clusterrole.yml
     - kubectl apply --kubeconfig admin.kubeconfig -f clusterrole-bind.yml
-  when: ansible_hostname == "controller-0"

@@ -55,3 +55,6 @@
     - 2
   tags: workers_create
 
+- name: 03-Pause to let instances load and apply to dynamic inventory
+  pause:
+    seconds: 60

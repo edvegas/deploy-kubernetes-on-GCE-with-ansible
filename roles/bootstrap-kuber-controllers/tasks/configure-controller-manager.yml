@@ -1,0 +1,12 @@
+---
+- name: 08-Move kube-scheduler config into place
+  become: yes
+  command: cp kube-controller-manager.kubeconfig /var/lib/kubernetes
+  args:
+    chdir: /home/k8s/
+
+- name: 08-Create scheduler service systemd unit file
+  become: yes
+  copy:
+    src: kube-controller-manager.service
+    dest: /etc/systemd/system/kube-controller-manager.service
