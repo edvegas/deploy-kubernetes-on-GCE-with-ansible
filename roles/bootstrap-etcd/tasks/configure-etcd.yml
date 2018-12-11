@@ -16,6 +16,6 @@
 - name: Copy etcd systemd unit file to controllers
   become: yes
   template:
-    src: etc.service.j2
+    src: etcd.service.j2
     dest: /etc/systemd/system/etcd.service
   notify: turn on etcd

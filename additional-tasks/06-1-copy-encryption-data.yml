@@ -1,7 +1,8 @@
 ---
 - name: Copy certificates to controllers 
   hosts: tag_controller
-  gather_facts: yes
+  gather_facts: no
+  become: yes
   tasks:
     - name: Copy certificates to controllers 
       copy:
