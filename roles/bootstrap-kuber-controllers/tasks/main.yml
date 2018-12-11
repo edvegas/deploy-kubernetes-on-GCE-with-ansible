@@ -9,5 +9,7 @@
 - include: configure-api-server.yml
 - include: configure-controller-manager.yml
 - include: configure-scheduler.yml
+- include: start-controller-services.yml
 - include: enable-http-health-checks.yml
+- include: start-nginx.yml
 - include: apply-api-to-kubelet.yml

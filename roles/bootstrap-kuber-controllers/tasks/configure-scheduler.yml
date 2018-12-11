@@ -16,4 +16,3 @@
   copy:
     src: kube-scheduler.service
     dest: /etc/systemd/system/kube-scheduler.service
-  notify: start controller services
