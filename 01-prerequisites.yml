@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: 01-Install GCP packages
+  hosts: localhost
   become: yes
   tasks:
     - name: Add GCP public key

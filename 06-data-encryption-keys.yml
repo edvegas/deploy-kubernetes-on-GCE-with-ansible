@@ -1,5 +1,5 @@
 ---
-- name: Generate an encryption key
+- name: 06-Generate an encryption key
   hosts: localhost
   gather_facts: no
   roles:

@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: 13-Smoke Test
+  hosts: localhost
   gather_facts: false
   tasks:
     - name: Skip testing

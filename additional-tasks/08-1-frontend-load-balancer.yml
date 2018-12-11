@@ -1,5 +1,5 @@
 ---
-- name: Provision a Network Load Balancer
+- name: 08-1 Provision a Network Load Balancer
   hosts: localhost
   tasks:
     - name: create HTTP health checks

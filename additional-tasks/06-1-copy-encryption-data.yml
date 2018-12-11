@@ -1,5 +1,5 @@
 ---
-- name: Copy certificates to controllers 
+- name: 06-1 Copy encryption-config.yaml to controllers 
   hosts: tag_controller
   gather_facts: no
   become: yes

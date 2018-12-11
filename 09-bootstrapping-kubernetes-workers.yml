@@ -1,5 +1,5 @@
 ---
-- name: Bootstrapping the Kubernetes Worker Nodes
+- name: 09-Bootstrapping the Kubernetes Worker Nodes
   hosts: tag_worker
   become: yes
   roles:

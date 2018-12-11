@@ -1,0 +1,15 @@
+---
+- name: 03-1-Gather facts for controllers and workers
+  hosts: all
+  gather_facts: no
+  become: yes
+  pre_tasks:
+    - name: Ensure python 2.7 is present
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      register: output
+      changed_when:
+        - output.stdout != ""
+        - output.stdout != "\r\n"
+  tasks:
+    - name:
+      setup:

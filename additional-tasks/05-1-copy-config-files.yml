@@ -1,5 +1,5 @@
 ---
-- name: Ensure permissions are correct
+- name: 05-1 Ensure permissions are correct
   hosts: localhost
   gather_facts: no
   become: yes
@@ -17,7 +17,7 @@
         - worker-1.kubeconfig
         - worker-2.kubeconfig
 
-- name: Copy certificates to workers
+- name: 05-1 Copy certificates to workers
   hosts: tag_worker
   gather_facts: yes
   tasks:
@@ -29,11 +29,11 @@
         - "{{ ansible_hostname }}.kubeconfig"
         - kube-proxy.kubeconfig
 
-- name: Copy certificates to controllers 
+- name: 05-1 Copy certificates to controllers 
   hosts: tag_controller
   gather_facts: no
   tasks:
-    - name: Copy certificates to workers
+    - name: Copy certificates to controllers
       copy:
         src: "/opt/kubernetes-pki/{{ item }}"
         dest: "/home/k8s/{{ item }}"

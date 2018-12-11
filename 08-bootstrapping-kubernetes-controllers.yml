@@ -1,5 +1,5 @@
 ---
-- name: Bootstrapping the Kubernetes Control Plane
+- name: 08-Bootstrapping the Kubernetes Control Plane
   hosts: tag_controller
   roles:
     - bootstrap-kuber-controllers

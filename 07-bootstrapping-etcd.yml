@@ -1,5 +1,5 @@
 ---
-- name: Bootstrapping the etcd Cluster
+- name: 07-Bootstrapping the etcd Cluster
   hosts: tag_controller
   roles:
     - bootstrap-etcd

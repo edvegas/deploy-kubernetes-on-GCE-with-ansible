@@ -1,5 +1,5 @@
 ---
-- name: Generate a kubeconfig file for admin user
+- name: 10-Generate a kubeconfig file for admin user
   hosts: localhost
   tasks:
     - name: generate kubeconfig file

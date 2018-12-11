@@ -5,10 +5,10 @@
 
 # provision compute resources
 - import_playbook: 03-compute-resources.yml
-  tags: tester
+- import_playbook: additional-tasks/03-1-gather-facts.yml
+
 # provision a Certificate Authority and generate TLS certificates
 - import_playbook: 04-certificate-authority.yml
-  tags: tester
 - import_playbook: additional-tasks/04-1-copy-certs.yml
 
 # generate Kubernetes Configuration Files for Authentification

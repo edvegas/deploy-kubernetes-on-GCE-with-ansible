@@ -1,5 +1,5 @@
 ---
-- name: Provision Google Cloud resources
+- name: 03-Provision Google Cloud resources
   hosts: localhost
   gather_facts: no
   roles:

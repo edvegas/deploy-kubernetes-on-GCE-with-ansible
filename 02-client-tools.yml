@@ -1,5 +1,5 @@
 ---
-- name: Install all necessary client tools on local machine
+- name: 02-Install all necessary client tools on local machine
   hosts: localhost
   become: yes
   gather_facts: no
