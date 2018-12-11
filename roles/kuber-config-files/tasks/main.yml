@@ -3,7 +3,7 @@
   file:
     path: /opt/kubernetes-pki
     state: directory
-    mode: 0750
+    mode: 0755
 
 - include: gencert-worker.yml
 - include: gencert-controller.yml

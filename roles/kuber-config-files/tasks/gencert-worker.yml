@@ -1,23 +1,11 @@
 ---
 - name: generate kubelet kubeconfig files
-  shell: kubectl config set-cluster kubernetes-the-hard-way \
-         --certificate-authority=ca.pem \
-         --embed-certs=true \
-         --server=https://{{ gce_lb_public_ip }}:6443 \
-         --kubeconfig={{ item }}.kubeconfig
-
-         kubectl config set-credentials system:node:{{ item }} \
-         --client-certificate={{ item }}.pem \
-         --client-key={{ item }}-key.pem \
-         --embed-certs=true \
-         --kubeconfig={{ item }}.kubeconfig
-
-         kubectl config set-context default \
-         --cluster=kubernetes-the-hard-way \
-         --user=system:node:{{ item }} \
-         --kubeconfig={{ item }}.kubeconfig
-
-         kubectl config use-context default --kubeconfig={{ item }}.kubeconfig
+  become: no
+  shell: 
+    - "kubectl config set-cluster kubernetes-the-hard-way --certificate-authority=ca.pem --embed-certs=true --server=https://{{ gce_lb_public_ip }}:6443 --kubeconfig={{ item }}.kubeconfig"
+    - "kubectl config set-credentials system:node:{{ item }} --client-certificate={{ item }}.pem --client-key={{ item }}-key.pem --embed-certs=true --kubeconfig={{ item }}.kubeconfig"
+    - "kubectl config set-context default --cluster=kubernetes-the-hard-way --user=system:node:{{ item }} --kubeconfig={{ item }}.kubeconfig"
+    - "kubectl config use-context default --kubeconfig={{ item }}.kubeconfig"
   args:
     chdir: /opt/kubernetes-pki
   with_items:
@@ -26,24 +14,11 @@
     - worker-2
 
 - name: generate kube-proxy kubeconfig file
-  shell: kubectl config set-cluster kubernetes-the-hard-way \
-         --certificate-authority=ca.pem \
-         --embed-certs=true \
-         --server=https://{{ gce_lb_public_ip }}:6443 \
-         --kubeconfig=kube-proxy.kubeconfig
-
-         kubectl config set-credentials system:kube-proxy \
-         --client-certificate=kube-proxy.pem \
-         --client-key=kube-proxy-key.pem \
-         --embed-certs=true \
-         --kubeconfig=kube-proxy.kubeconfig
-
-         kubectl config set-context default \
-         --cluster=kubernetes-the-hard-way \
-         --user=system:kube-proxy \
-         --kubeconfig=kube-proxy.kubeconfig
-    
-         kubectl config use-context default --kubeconfig=kube-proxy.kubeconfig
-
+  become: no
+  shell: 
+    - "kubectl config set-cluster kubernetes-the-hard-way --certificate-authority=ca.pem --embed-certs=true --server=https://{{ gce_lb_public_ip }}:6443 --kubeconfig=kube-proxy.kubeconfig"
+    - "kubectl config set-credentials system:kube-proxy --client-certificate=kube-proxy.pem --client-key=kube-proxy-key.pem --embed-certs=true --kubeconfig=kube-proxy.kubeconfig"
+    - "kubectl config set-context default --cluster=kubernetes-the-hard-way --user=system:kube-proxy --kubeconfig=kube-proxy.kubeconfig" 
+    - "kubectl config use-context default --kubeconfig=kube-proxy.kubeconfig"
   args:
     chdir: /opt/kubernetes-pki
