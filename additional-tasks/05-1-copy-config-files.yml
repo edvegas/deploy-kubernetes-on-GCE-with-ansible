@@ -1,4 +1,22 @@
 ---
+- name: Ensure permissions are correct
+  hosts: localhost
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Set permissions to kubeconfig files
+      file:
+        path: "/opt/kubernetes-pki/{{ item }}"
+        mode: 0644
+      with_items:
+        - admin.kubeconfig
+        - kube-controller-manager.kubeconfig
+        - kube-proxy.kubeconfig
+        - kube-scheduler.kubeconfig
+        - worker-0.kubeconfig
+        - worker-1.kubeconfig
+        - worker-2.kubeconfig
+
 - name: Copy certificates to workers
   hosts: tag_worker
   gather_facts: yes
@@ -13,7 +31,7 @@
 
 - name: Copy certificates to controllers 
   hosts: tag_controller
-  gather_facts: yes
+  gather_facts: no
   tasks:
     - name: Copy certificates to workers
       copy:
