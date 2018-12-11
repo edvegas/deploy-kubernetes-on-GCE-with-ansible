@@ -2,6 +2,7 @@
 - name: Ensure python 2.7 is present on all hosts
   hosts: all
   become: yes
+  become_user: root
   gather_facts: no
 
   pre_tasks:
@@ -16,7 +17,28 @@
       file:
         path: "/opt/kubernetes-pki"
         state: directory
-      
+
+- name: Change permissions on localhost
+  hosts: localhost
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Change permissions on localhost
+      file:
+        path: "/opt/kubernetes-pki/{{ item }}"
+        mode: 0644
+      with_items:
+        - admin-key.pem
+        - ca-key.pem
+        - kube-controller-manager-key.pem
+        - kube-proxy-key.pem
+        - kubernetes-key.pem
+        - kube-scheduler-key.pem
+        - service-account-key.pem
+        - worker-0-key.pem
+        - worker-1-key.pem
+        - worker-2-key.pem
+        
 - name: Copy certificates to workers
   hosts: tag_worker
   tasks:
@@ -31,6 +53,7 @@
 
 - name: Copy certificates to controllers 
   hosts: tag_controller
+  gather_facts: no
   tasks:
     - name: Copy certificates to controllers
       copy:
