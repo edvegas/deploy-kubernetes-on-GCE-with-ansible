@@ -13,6 +13,6 @@
 
 - name: 08-Create scheduler service systemd unit file
   become: yes
-  copy:
+  template:
     src: kube-scheduler.service
     dest: /etc/systemd/system/kube-scheduler.service

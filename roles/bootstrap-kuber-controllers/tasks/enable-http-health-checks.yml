@@ -17,4 +17,3 @@
     src: /etc/nginx/sites-available/kubernetes.default.svc.cluster.local
     dest: /etc/nginx/sites-enabled/kubernetes.default.svc.cluster.local
     state: link
-  notify: restart nginx
