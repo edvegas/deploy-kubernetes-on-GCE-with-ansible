@@ -1,13 +1,13 @@
 ---
-- name: Move kube-proxy kubeconfig file
+- name: 09-Move kube-proxy kubeconfig file
   command: mv kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
 
-- name: Copy proxy-config yaml config file
+- name: 09-Copy proxy-config yaml config file
   template:
     src: kube-proxy-config.yaml
     dest: /var/lib/kube-proxy/kube-proxy-config.yaml
 
-- name: Copy kube-proxy.service systemd unit file
+- name: 09-Copy kube-proxy.service systemd unit file
   template:
     src: kube-proxy.service
     dest: /etc/systemd/system/kube-proxy.service

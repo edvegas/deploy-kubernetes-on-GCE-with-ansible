@@ -1,17 +1,17 @@
 ---
-- name: Install a basic web server to handle HTTP health checks
+- name: 08-Install a basic web server to handle HTTP health checks
   become: yes
   apt:
     name: nginx
     state: latest
 
-- name: Copy nginx virtual host config file
+- name: 08-Copy nginx virtual host config file
   become: yes
   copy:
     src: kubernetes.default.svc.cluster.local
     dest: /etc/nginx/sites-available/kubernetes.default.svc.cluster.local
 
-- name: Enable website
+- name: 08-Enable website
   become: yes
   file:
     src: /etc/nginx/sites-available/kubernetes.default.svc.cluster.local

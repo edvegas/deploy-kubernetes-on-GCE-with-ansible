@@ -1,5 +1,5 @@
 ---
-- name: generate kubelet kubeconfig files
+- name: 05-generate kubelet kubeconfig files
   shell: | 
     kubectl config set-cluster kubernetes-the-hard-way \
       --certificate-authority=ca.pem --embed-certs=true \
@@ -24,7 +24,7 @@
     - worker-1
     - worker-2
 
-- name: generate kube-proxy kubeconfig file
+- name: 05-generate kube-proxy kubeconfig file
   shell: |
     kubectl config set-cluster kubernetes-the-hard-way \
       --certificate-authority=ca.pem --embed-certs=true \

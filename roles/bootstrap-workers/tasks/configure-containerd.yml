@@ -1,15 +1,15 @@
 ---
-- name: Make sure containerd directory exists
+- name: 09-Make sure containerd directory exists
   file:
     path: /etc/containerd/
     state: directory
 
-- name: Copy config.toml file
+- name: 09-Copy config.toml file
   template:
     src: config.toml
     dest: /etc/containerd/config.toml
 
-- name: Copy containerd systemd unit file
+- name: 09-Copy containerd systemd unit file
   template:
     src: containerd.service
     dest: /etc/systemd/system/containerd.service

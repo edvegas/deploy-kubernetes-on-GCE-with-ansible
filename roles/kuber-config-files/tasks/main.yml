@@ -1,10 +1,10 @@
 ---
-- name: Ensure directory for config files is present
+- name: 05-Ensure directory for config files is present
   file:
     path: /opt/kubernetes-pki
     state: directory
     mode: 0755
-- name: Allocate a static IP address for external load balancer
+- name: 05-Allocate a static IP address for external load balancer
   become: no
   gcp_compute_address:
     name: kubernetes-the-hard-way

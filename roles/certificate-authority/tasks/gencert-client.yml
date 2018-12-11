@@ -1,10 +1,10 @@
 ---
-- name: Generate CA keys
+- name: 04-Generate CA keys
   shell: cfssl gencert -initca ca-csr.json | cfssljson -bare ca
   args:
     chdir: /opt/kubernetes-pki
 
-- name: Generate Admin Client Certificate
+- name: 04-Generate Admin Client Certificate
   shell: cfssl gencert \
          -ca=ca.pem \
          -ca-key=ca-key.pem \
@@ -14,7 +14,7 @@
   args:
     chdir: /opt/kubernetes-pki
 
-- name: Generate certificates for each worker node 
+- name: 04-Generate certificates for each worker node 
   shell: cfssl gencert \
          -ca=ca.pem \
          -ca-key=ca-key.pem \
@@ -29,7 +29,7 @@
     - worker-1
     - worker-2
 
-- name: Generate certificate for Controller Manager
+- name: 04-Generate certificate for Controller Manager
   shell: cfssl gencert \
          -ca=ca.pem \
          -ca-key=ca-key.pem \
@@ -39,7 +39,7 @@
   args:
     chdir: /opt/kubernetes-pki
 
-- name: Generate certificate for kube proxy client
+- name: 04-Generate certificate for kube proxy client
   shell: cfssl gencert \
          -ca=ca.pem \
          -ca-key=ca-key.pem \
@@ -49,7 +49,7 @@
   args:
     chdir: /opt/kubernetes-pki
 
-- name: Generate Scheduler CLient Certificate
+- name: 04-Generate Scheduler CLient Certificate
   shell: cfssl gencert \
          -ca=ca.pem \
          -ca-key=ca-key.pem \

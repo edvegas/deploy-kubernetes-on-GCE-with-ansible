@@ -1,5 +1,5 @@
 ---
-- name: copy RBAC config files to controller-0
+- name: 08-copy RBAC config files to controller-0
   copy: 
     src: "{{ item }}"
     dest: "/home/k8s/{{ item }}"
@@ -8,7 +8,7 @@
     - clusterrole-bind.yml
   when: ansible_hostname == "controller-0"
 
-- name: create ClusterRole to access Kubelet API
+- name: 08-create ClusterRole to access Kubelet API
   shell: "{{ item }}" 
   args:
     chdir: /home/k8s

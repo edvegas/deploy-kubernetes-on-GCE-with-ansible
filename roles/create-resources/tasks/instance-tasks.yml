@@ -1,4 +1,4 @@
-- name: Create Kubernetes controllers
+- name: 03-Create Kubernetes controllers
   gce:
     instance_names: "controller-{{ item }}" 
     project_id: "{{ project_id }}"
@@ -26,7 +26,7 @@
     - 2
   tags: controllers_create
 
-- name: Create Kubernetes workers
+- name: 03-Create Kubernetes workers
   gce:
     instance_names: "worker-{{ item }}" 
     project_id: "{{ project_id }}"

@@ -1,4 +1,4 @@
-- name: Create etcd configuration directories
+- name: 07-Create etcd configuration directories
   become: yes
   file:
     path: "{{ item }}"
@@ -7,13 +7,13 @@
     - /etc/etcd
     - /var/lib/etcd
 
-- name: Copy keys to configuration directory
+- name: 07-Copy keys to configuration directory
   become: yes
   command: cp ca.pem kubernetes-key.pem kubernetes.pem /etc/etcd/
   args:
     chdir: /home/k8s/
 
-- name: Copy etcd systemd unit file to controllers
+- name: 07-Copy etcd systemd unit file to controllers
   become: yes
   template:
     src: etcd.service.j2

@@ -1,5 +1,5 @@
 ---
-- name: Create necessary directories
+- name: 09-Create necessary directories
   file:
     path: "{{ item }}"
     state: directory
@@ -11,17 +11,17 @@
     - /var/lib/kubernetes
     - /var/run/kubernetes
 
-- name: Download runsc Binaries
+- name: 09-Download runsc Binaries
   get_url: 
     url: https://storage.googleapis.com/kubernetes-the-hard-way/runsc-50c283b9f56bb7200938d9e207355f05f79f0d17
     dest: /usr/local/bin/runsc
     mode: 0755
-- name: Download runc binaries
+- name: 09-Download runc binaries
   get_url:
     url: https://github.com/opencontainers/runc/releases/download/v1.0.0-rc5/runc.amd64
     dest: /usr/local/bin/runc 
     mode: 0755
-- name: Download kubectl/kube-proxy/kubelet binaries
+- name: 09-Download kubectl/kube-proxy/kubelet binaries
   get_url:
     url: "https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
@@ -31,7 +31,7 @@
     - kube-proxy
     - kubelet
  
-- name: Download tar archives with binaries 
+- name: 09-Download tar archives with binaries 
   unarchive:
     src: "{{ item }}" 
     dest: /usr/local/bin
@@ -39,7 +39,7 @@
   with_items:
     - https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.12.0/crictl-v1.12.0-linux-amd64.tar.gz
     - https://github.com/containernetworking/plugins/releases/download/v0.6.0/cni-plugins-amd64-v0.6.0.tgz
-- name: Download containerd
+- name: 09-Download containerd
   unarchive:
     src: https://github.com/containerd/containerd/releases/download/v1.2.0-rc.0/containerd-1.2.0-rc.0.linux-amd64.tar.gz
     dest: /

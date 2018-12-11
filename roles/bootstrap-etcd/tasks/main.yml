@@ -1,18 +1,18 @@
 ---
-- name: Download the official etcd release binaries  
+- name: 07-Download the official etcd release binaries  
   become: yes
   get_url:
     url: https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz
     dest: /opt/kubernetes-pki/etcd-v3.3.9-linux-amd64.tar.gz
     mode: 0644
 
-- name: Extract etcd tar archive
+- name: 07-Extract etcd tar archive
   unarchive:
     src: /opt/kubernetes-pki/etcd-v3.3.9-linux-amd64.tar.gz
     dest: /home/k8s/
     remote_src: yes
 
-- name: Move files to /usr/local/bin
+- name: 07-Move files to /usr/local/bin
   become: yes
   command: "{{ item }}"
   with_items:

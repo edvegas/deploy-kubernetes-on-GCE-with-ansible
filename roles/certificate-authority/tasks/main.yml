@@ -1,11 +1,11 @@
 ---
-- name: Ensure directory for PKI files is present
+- name: 04-Ensure directory for PKI files is present
   file:
     path: /opt/kubernetes-pki
     state: directory
     mode: 0755
 
-- name: Copy files to kubernetes directory
+- name: 04-Copy files to kubernetes directory
   copy: 
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'
@@ -19,7 +19,7 @@
     - { src: 'kube-scheduler-csr.json', dest: '/opt/kubernetes-pki/kube-scheduler-csr.json' }
     - { src: 'service-account-csr.json', dest: '/opt/kubernetes-pki/service-account-csr.json' }
 
-- name: Copy certificates of each worker node
+- name: 04-Copy certificates of each worker node
   template:
     src: worker-csr.json.j2
     dest: "{{ item.dest }}"

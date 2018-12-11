@@ -1,5 +1,5 @@
 ---
-- name: Create custom VPC network
+- name: 03-Create custom VPC network
 # auto_create_subnetwork option creates legacy network instead custom hence using gce_net module at the moment - bug report #45803
 #  gcp_compute_network:
 #    name: kubernetes-the-hard-way
@@ -31,7 +31,7 @@
 #    msg: "{{ kuber_subnetwork }}"
 #  tags: new_net
 
-- name: Create Firewall Rule for internal communication
+- name: 03-Create Firewall Rule for internal communication
   gcp_compute_firewall:
     network: "projects/{{ project_id }}/global/networks/kubernetes-the-hard-way" 
     name: kubernetes-the-hard-way-allow-internal
@@ -44,7 +44,7 @@
       - ip_protocol: icmp
     project: "{{ project_id }}"
 
-- name: Add another firewall rule
+- name: 03-Add another firewall rule
   gcp_compute_firewall:
     network: "projects/{{ project_id }}/global/networks/kubernetes-the-hard-way" 
     name: kubernetes-the-hard-way-allow-external
@@ -57,7 +57,7 @@
       - ip_protocol: icmp
     project: "{{ project_id }}"
 
-- name: Allocate a static IP address for external load balancer
+- name: 03-Allocate a static IP address for external load balancer
   gcp_compute_address:
     name: kubernetes-the-hard-way
     region: europe-west1

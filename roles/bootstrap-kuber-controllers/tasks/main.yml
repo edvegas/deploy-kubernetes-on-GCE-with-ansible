@@ -1,5 +1,5 @@
 ---
-- name: Create Kubernetes configuration directory
+- name: 08-Create Kubernetes configuration directory
   become: yes
   file:
     path: /etc/kubernetes/config

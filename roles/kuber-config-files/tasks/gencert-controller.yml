@@ -1,5 +1,5 @@
 ---
-- name: generate kube-controller-manager kubeconfig file
+- name: 05-generate kube-controller-manager kubeconfig file
   shell: | 
     kubectl config set-cluster kubernetes-the-hard-way \
      --certificate-authority=ca.pem \
@@ -22,7 +22,7 @@
   args:
     chdir: /opt/kubernetes-pki
 
-- name: generate kube-scheduler kubeconfig file
+- name: 05-generate kube-scheduler kubeconfig file
   shell: | 
     kubectl config set-cluster kubernetes-the-hard-way \
       --certificate-authority=ca.pem \
@@ -45,7 +45,7 @@
   args:
     chdir: /opt/kubernetes-pki
 
-- name: generate admin kubeconfig file
+- name: 05-generate admin kubeconfig file
   shell: | 
     kubectl config set-cluster kubernetes-the-hard-way \
       --certificate-authority=ca.pem \

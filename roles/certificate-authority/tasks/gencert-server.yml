@@ -1,5 +1,5 @@
 ---
-- name: generate Kubernetes API server certificate and private key
+- name: 04-generate Kubernetes API server certificate and private key
   shell: cfssl gencert \
          -ca=ca.pem \
          -ca-key=ca-key.pem \
@@ -10,7 +10,7 @@
   args:
     chdir: /opt/kubernetes-pki  
 
-- name: generate service account certificate and private key
+- name: 04-generate service account certificate and private key
   shell: cfssl gencert \
          -ca=ca.pem \
          -ca-key=ca-key.pem \
