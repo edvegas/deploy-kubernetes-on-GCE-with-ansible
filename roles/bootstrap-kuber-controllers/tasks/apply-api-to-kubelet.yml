@@ -2,7 +2,7 @@
 - name: copy RBAC config files to controller-0
   copy: 
     src: "{{ item }}"
-    dest: /home/k8s/clusterrole.yml
+    dest: "/home/k8s/{{ item }}"
   with_items:
     - clusterrole.yml
     - clusterrole-bind.yml

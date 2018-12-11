@@ -6,6 +6,7 @@
     state: latest
 
 - name: Copy nginx virtual host config file
+  become: yes
   copy:
     src: kubernetes.default.svc.cluster.local
     dest: /etc/nginx/sites-available/kubernetes.default.svc.cluster.local
