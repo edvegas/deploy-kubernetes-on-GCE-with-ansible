@@ -1,10 +1,4 @@
----
-
-# install client tools (cfssl, cfssljson and kubectl)
-- import_playbook: 02-client-tools.yml
-
-# provision compute resources
-- import_playbook: 03-compute-resources.yml
+# gather facts of new instances
 - import_playbook: additional-tasks/03-1-gather-facts.yml
 
 # provision a Certificate Authority and generate TLS certificates

@@ -1,0 +1,7 @@
+---
+
+# install client tools (cfssl, cfssljson and kubectl)
+- import_playbook: 02-client-tools.yml
+
+# provision compute resources
+- import_playbook: 03-compute-resources.yml

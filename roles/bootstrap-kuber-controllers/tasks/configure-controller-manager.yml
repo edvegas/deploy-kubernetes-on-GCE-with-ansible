@@ -7,6 +7,6 @@
 
 - name: 08-Create controller-manager service systemd unit file
   become: yes
-  copy:
+  template:
     src: kube-controller-manager.service
     dest: /etc/systemd/system/kube-controller-manager.service
