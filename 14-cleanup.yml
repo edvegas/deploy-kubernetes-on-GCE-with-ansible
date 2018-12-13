@@ -50,7 +50,6 @@
         name: "{{ item }}"
         state: absent
       with_items:
-        - kubernetes-the-hard-way-allow-nginx-service
         - kubernetes-the-hard-way-allow-internal
         - kubernetes-the-hard-way-allow-external
         - kubernetes-the-hard-way-allow-health-check
