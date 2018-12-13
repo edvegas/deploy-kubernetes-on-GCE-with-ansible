@@ -1,5 +1,5 @@
 ---
-- name: turn on etcd
+- name: turn on etcd service
   become: yes
   systemd:
     name: etcd

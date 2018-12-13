@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: no
   tasks:
-    - name: get IP
+    - name: get IP of external Load Balancer
       gcp_compute_address:
         name: kubernetes-the-hard-way
         region: europe-west1

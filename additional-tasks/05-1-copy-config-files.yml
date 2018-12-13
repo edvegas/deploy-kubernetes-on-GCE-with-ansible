@@ -19,7 +19,7 @@
 
 - name: 05-1 Copy certificates to workers
   hosts: tag_worker
-  gather_facts: yes
+  gather_facts: no
   tasks:
     - name: Copy certificates to workers
       copy:

@@ -6,7 +6,7 @@
     - name: 03-Allocate a static IP address for external load balancer
       gcp_compute_address:
         name: kubernetes-the-hard-way
-        region: europe-west1
+        region: "{{ region }}"
         project: "{{ project_id }}"
       register: gce_eip
 
@@ -32,7 +32,7 @@
       gcp_compute_target_pool:
         name: "kubernetes-target-pool"
         health_check: "{{ http_health_check }}" 
-        region: europe-west1
+        region: "{{ region }}"
         project: "{{ project_id }}"
       register: k8s_target_pool
 
@@ -43,7 +43,7 @@
     - name: create forwarding rules
       gcp_compute_forwarding_rule:
         name: "kubernetes-forwarding-rule"
-        region: europe-west1
+        region: "{{ region }}"
         project: "{{ project_id }}"
         ip_address:  "{{ gce_eip.address }}" 
         target: "{{ k8s_target_pool }}"

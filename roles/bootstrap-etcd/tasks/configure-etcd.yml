@@ -9,9 +9,10 @@
 
 - name: 07-Copy keys to configuration directory
   become: yes
-  command: cp ca.pem kubernetes-key.pem kubernetes.pem /etc/etcd/
+  command: mv ca.pem kubernetes-key.pem kubernetes.pem /etc/etcd/
   args:
     chdir: /home/k8s/
+  ignore_errors: yes
 
 - name: 07-Copy etcd systemd unit file to controllers
   become: yes

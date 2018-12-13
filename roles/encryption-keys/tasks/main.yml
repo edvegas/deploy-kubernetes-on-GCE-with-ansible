@@ -3,7 +3,7 @@
   shell: head -c 32 /dev/urandom | base64
   register: encryption_key
 
-- name: 06-Ensure the encryption config file is present
+- name: 06-Create encryption config file
   become: yes
   template:
     src: encryption-config.yaml

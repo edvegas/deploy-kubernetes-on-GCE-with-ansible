@@ -1,5 +1,3 @@
 ---
 - include: network-tasks.yml
-  tags: networking
 - include: instance-tasks.yml
-  tags: instances

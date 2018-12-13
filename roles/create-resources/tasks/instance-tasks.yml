@@ -6,7 +6,7 @@
     machine_type: n1-standard-1
     disk_size: 200
     image: ubuntu-18 
-    zone: europe-west1-b
+    zone: "{{ zone }}"
     ip_forward: yes
     service_account_permissions:
       - compute-rw
@@ -34,7 +34,7 @@
     machine_type: n1-standard-1
     disk_size: 200
     image: ubuntu-18 
-    zone: europe-west1-b
+    zone: "{{ zone }}"
     ip_forward: yes
     service_account_permissions:
       - compute-rw
@@ -54,4 +54,3 @@
     - 1
     - 2
   tags: workers_create
-

@@ -12,9 +12,8 @@
     mode: custom
     ipv4_range: 10.240.0.0/24
     subnet_name: kubernetes
-    subnet_region: europe-west1
+    subnet_region: "{{ region }}"
   register: kuber_network
-  tags: new_net
 
 #- name: Create subnetwork
 #  gcp_compute_subnetwork:
@@ -24,12 +23,10 @@
 #    region: europe-west1
 #    project: docker-221205
 #  register: kuber_subnetwork
-#  tags: new_net
 
 #- name: show kuber subnetwork
 #  debug:
 #    msg: "{{ kuber_subnetwork }}"
-#  tags: new_net
 
 - name: 03-Create Firewall Rule for internal communication
   gcp_compute_firewall:
@@ -60,6 +57,6 @@
 - name: 03-Allocate a static IP address for external load balancer
   gcp_compute_address:
     name: kubernetes-the-hard-way
-    region: europe-west1
+    region: "{{ region }}"
     project: "{{ project_id }}"
   register: gce_eip

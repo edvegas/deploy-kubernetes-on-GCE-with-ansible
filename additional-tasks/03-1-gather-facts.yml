@@ -1,5 +1,5 @@
 ---
-- name: 03-1-Gather facts for controllers and workers
+- name: 03-1-pre-install python and gather facts of new instances
   hosts: all
   gather_facts: no
   become: yes

@@ -12,6 +12,7 @@
 
 - name: 08-Install Kubernetes binaries
   become: yes
-  command: cp kube-apiserver kube-controller-manager kube-scheduler kubectl /usr/local/bin/
+  command: mv kube-apiserver kube-controller-manager kube-scheduler kubectl /usr/local/bin/
   args:
     chdir: /home/k8s
+  ignore_errors: yes

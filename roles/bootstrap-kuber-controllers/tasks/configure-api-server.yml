@@ -7,11 +7,12 @@
 
 - name: 08-Move necessary keys
   become: yes
-  command: cp ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
+  command: mv ca.pem ca-key.pem kubernetes-key.pem kubernetes.pem \
            service-account-key.pem service-account.pem \
            encryption-config.yaml /var/lib/kubernetes/
   args:
     chdir: /home/k8s/
+  ignore_errors: yes
 
 - name: 08-Create kube-apiserver.service systemd unit file
   become: yes

@@ -3,4 +3,3 @@
   hosts: tag_controller
   roles:
     - bootstrap-etcd
-  tags: bootstrapper

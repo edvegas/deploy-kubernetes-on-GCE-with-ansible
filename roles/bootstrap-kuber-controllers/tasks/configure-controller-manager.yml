@@ -1,9 +1,10 @@
 ---
 - name: 08-Move kube-controller-manager config into place
   become: yes
-  command: cp kube-controller-manager.kubeconfig /var/lib/kubernetes
+  command: mv kube-controller-manager.kubeconfig /var/lib/kubernetes
   args:
     chdir: /home/k8s/
+  ignore_errors: yes
 
 - name: 08-Create controller-manager service systemd unit file
   become: yes

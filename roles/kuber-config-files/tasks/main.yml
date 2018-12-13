@@ -1,5 +1,5 @@
 ---
-- name: 05-Ensure directory for config files is present
+- name: 05-Ensure directory for config files is present on localhost
   file:
     path: /opt/kubernetes-pki
     state: directory
