@@ -7,6 +7,6 @@
       shell: kubectl apply -f https://storage.googleapis.com/kubernetes-the-hard-way/coredns.yaml
     - name: Pause to be able to DNS cluster to be up
       pause:
-        seconds: 60
+        seconds: 15
     - name: Start container to verify everything works
       shell: kubectl run busybox --image=busybox:1.28 --command -- sleep 3600
