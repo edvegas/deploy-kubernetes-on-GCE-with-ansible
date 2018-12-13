@@ -4,11 +4,6 @@
   gather_facts: false
   become: yes
   tasks:
-    - name: Delete local directory with configs and keys
-      file:
-        path: /opt/kubernetes-pki/
-        state: absent
-
     - name: Skip testing
       debug:
         msg: "Skipping..."
