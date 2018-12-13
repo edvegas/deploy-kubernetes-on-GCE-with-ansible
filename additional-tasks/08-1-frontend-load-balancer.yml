@@ -1,41 +1,51 @@
 ---
 - name: 08-1 Provision a Network Load Balancer
   hosts: localhost
+  gather_facts: no
   tasks:
+    - name: 03-Allocate a static IP address for external load balancer
+      gcp_compute_address:
+        name: kubernetes-the-hard-way
+        region: europe-west1
+        project: "{{ project_id }}"
+      register: gce_eip
+
     - name: create HTTP health checks
       gcp_compute_http_health_check:
-        auth_kind: "service_account"
         name: "kubernetes"
         description: "Kubernetes Health Check"
         host: "kubernetes.default.svc.cluster.local"
         request_path: "/healthz"
+        project: "{{ project_id }}"
+      register: http_health_check
 
     - name: create firewall rules
       gcp_compute_firewall:
-        auth_kind: "service_account"
         name: "kubernetes-the-hard-way-allow-health-check"
-        network: kubernetes-the-hard-way
+        network: "projects/{{ project_id }}/global/networks/kubernetes-the-hard-way"
         source_ranges: 209.85.152.0/22,209.85.204.0/22,35.191.0.0/16
         allowed:
-          ip_protocol: tcp
+          - ip_protocol: tcp
+        project: "{{ project_id }}"
 
     - name: create GCP target pool
       gcp_compute_target_pool:
-        auth_kind: "service_account"
         name: "kubernetes-target-pool"
-        health_check: kubernetes
+        health_check: "{{ http_health_check }}" 
         region: europe-west1
-        instances: "{{ item }}"
-      with_items:
-        - controller-0
-        - controller-1
-        - controller-2
+        project: "{{ project_id }}"
+      register: k8s_target_pool
+
+# using additional step as 'instance' option for gcp_compute_target_pool doesn't work
+    - name: Add instances to target pool
+      command: gcloud compute target-pools add-instances kubernetes-target-pool --instances controller-0,controller-1,controller-2
 
     - name: create forwarding rules
       gcp_compute_forwarding_rule:
-        auth_kind: "service_account"
         name: "kubernetes-forwarding-rule"
         region: europe-west1
+        project: "{{ project_id }}"
         ip_address:  "{{ gce_eip.address }}" 
-        target: kubernetes-target-pool
-        ports: 6443
+        target: "{{ k8s_target_pool }}"
+        ip_protocol: TCP
+        port_range: 6443
