@@ -4,13 +4,6 @@
     path: /opt/kubernetes-pki
     state: directory
     mode: 0755
-- name: 05-Allocate a static IP address for external load balancer
-  become: no
-  gcp_compute_address:
-    name: kubernetes-the-hard-way
-    region: europe-west1
-    project: "{{ project_id }}"
-  register: gce_eip
 
 - include: gencert-worker.yml
 - include: gencert-controller.yml

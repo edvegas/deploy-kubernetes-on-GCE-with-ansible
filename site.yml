@@ -1,5 +1,6 @@
 # gather facts of new instances
 - import_playbook: additional-tasks/03-1-gather-facts.yml
+- import_playbook: additional-tasks/03-2-gather-eip.yml
 
 # provision a Certificate Authority and generate TLS certificates
 - import_playbook: 04-certificate-authority.yml

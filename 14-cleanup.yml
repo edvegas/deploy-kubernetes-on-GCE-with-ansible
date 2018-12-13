@@ -83,3 +83,9 @@
         project: "{{ project_id }}"
         state: absent
         name: kubernetes-the-hard-way
+ 
+    - name: Delete local directory with configs and keys
+      become: yes
+      file:
+        path: /opt/kubernetes-pki/
+        state: absent

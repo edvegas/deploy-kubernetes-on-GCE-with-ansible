@@ -1,0 +1,12 @@
+---
+- name: 03-2-Collect Static IP address
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: get IP
+      gcp_compute_address:
+        name: kubernetes-the-hard-way
+        region: europe-west1
+        project: "{{ project_id }}"
+      register: gce_eip
+

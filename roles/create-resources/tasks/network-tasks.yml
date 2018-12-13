@@ -44,7 +44,7 @@
       - ip_protocol: icmp
     project: "{{ project_id }}"
 
-- name: 03-Add another firewall rule
+- name: 03-Create Firewall Rule for external communication
   gcp_compute_firewall:
     network: "projects/{{ project_id }}/global/networks/kubernetes-the-hard-way" 
     name: kubernetes-the-hard-way-allow-external
