@@ -1,15 +1,19 @@
 ---
 - name: 11-Provisioning Pod Network Routes
   hosts: localhost
+  gather_facts: no
+  vars:
+    workers:
+      worker-0: 0
+      worker-1: 1
+      worker-2: 2
   tasks:
-    - name: Provision Pod Network Routes
+    - name: Provision Pod Network Route 
       gcp_compute_route:
-        auth_kind: "service_account"
-        dest_range: "10.200.{{ item }}.0/24"
-        name: "kubernetes-route-10-200-{{ item }}-0-24"
-        network: kubernetes-the-hard-way
-        next_hop_ip: "10.240.0.2{{ item }}"
-      with_items:
-        - 0
-        - 1
-        - 2
+        project: "{{ project_id }}"
+        dest_range: "10.200.{{ item.value }}.0/24"
+        name: "kubernetes-route-10-200-{{ item.value }}-0-24"
+        network: 
+          selfLink: "projects/{{ project_id }}/global/networks/kubernetes-the-hard-way"
+        next_hop_ip: "{{ hostvars[item.key]['gce_private_ip'] }}"
+      with_dict: "{{ workers }}"

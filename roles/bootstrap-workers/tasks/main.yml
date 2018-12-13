@@ -1,12 +1,11 @@
 ---
 - name: 09-Install OS dependencies
   apt:
-    name: "{{ item }}"
+    pkg:
+      - socat
+      - conntrack
+      - ipset
     update_cache: yes
-  with_items:
-    - socat
-    - conntrack
-    - ipset
  
 - include: download-install-bins.yml
 - include: configure-cni.yml

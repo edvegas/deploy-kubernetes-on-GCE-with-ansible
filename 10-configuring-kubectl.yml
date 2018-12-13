@@ -1,7 +1,15 @@
 ---
 - name: 10-Generate a kubeconfig file for admin user
   hosts: localhost
+  gather_facts: no
   tasks:
+    - name: 03-Allocate a static IP address for external load balancer
+      gcp_compute_address:
+        name: kubernetes-the-hard-way
+        region: europe-west1
+        project: "{{ project_id }}"
+      register: gce_eip
+
     - name: generate kubeconfig file
       shell: "{{ item }}"
       args:

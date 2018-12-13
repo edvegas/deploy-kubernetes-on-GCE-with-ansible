@@ -1,6 +1,6 @@
 ---
 - name: 09-Move kube-proxy kubeconfig file
-  command: mv kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
+  command: cp kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
 
 - name: 09-Copy proxy-config yaml config file
   template:
