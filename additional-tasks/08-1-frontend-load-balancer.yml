@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: no
   tasks:
-    - name: 03-Allocate a static IP address for external load balancer
+    - name: get IP of LB
       gcp_compute_address:
         name: kubernetes-the-hard-way
         region: "{{ region }}"
