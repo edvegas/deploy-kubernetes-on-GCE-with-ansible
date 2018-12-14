@@ -1,3 +1,4 @@
 ssh/k8s*
 .env
 inventory/gce.ini
+inventory/group_vars/all.yml

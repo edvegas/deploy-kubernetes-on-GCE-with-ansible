@@ -1,5 +1,5 @@
 ---
 gce_lb_public_ip: "{{ hostvars['localhost']['gce_eip']['address'] }}"
-project_id: docker-221205
-region: europe-west1
-zone: europe-west1-b
+project_id: YOUR_GCP_PROJECT_ID
+region: YOUR_REGION
+zone: YOUR_ZONE
