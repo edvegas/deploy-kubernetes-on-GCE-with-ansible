@@ -60,7 +60,7 @@ Execute following command, make coffee and enjoy
 
 ```ansible-playbook site.yml```
 
-Verify test busybox container is running:
+Verify test busybox pod is running:
 
 ```kubectl get pods -l run=busybox```
 
